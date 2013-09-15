@@ -1,0 +1,84 @@
+            /
+            / Code Segment
+            /
+            Esc=27d
+            /
+            *0200 / Code Segment starts at 0200o
+0200/7300   Main, cla cll / Clear AC and Link
+0201/6046     tls / Wake Up Printer
+0202/1300     tad Str / Get address of output string
+0203/4353     jms PrtStr / Call PtrStr to Print it
+0204/7402   End, hlt / Done!
+0205/5200     jmp Main / Continue
+            /
+            / Data Segment
+            /
+            *0300 / Place String at 0300o
+0300/0300   Str, . / Str stores its own address
+0301/0033     Esc;'[2J';Esc;'[0;0H';'Hello ';Esc;'[7m';'World';Esc;'[0m';'!';13d;10d;0 / 
+0302/0133
+0303/0062
+0304/0112
+0305/0033
+0306/0133
+0307/0060
+0310/0073
+0311/0060
+0312/0110
+0313/0110
+0314/0145
+0315/0154
+0316/0154
+0317/0157
+0320/0040
+0321/0033
+0322/0133
+0323/0067
+0324/0155
+0325/0127
+0326/0157
+0327/0162
+0330/0154
+0331/0144
+0332/0033
+0333/0133
+0334/0060
+0335/0155
+0336/0041
+0337/0015
+0340/0012
+0341/0000
+            /
+            / Subroutine Segment
+            /
+            *0340 / Subroutines begin at address 0340o
+0340/0000   GetChar, 0 / Return Address Stored Here
+0341/6031     ksf / Is Keyboard Flag Raised ?
+0342/5341     jmp .-1 / No - Loop! (Wait Loop)
+0343/6036     krb / Yes - Read Character to AC
+0344/5740     jmp i GetChar / Return
+0345/0000   Type, 0 / Return Address Stored Here
+0346/6041     tsf / Is Printer Ready?
+0347/5346     jmp .-1 / No - Loop! (Wait Loop)
+0350/6046     tls / Yes - Print the character!
+0351/7300     cla cll / Clear AC and Link
+0352/5745     jmp i Type / Return
+0353/0000   PrtStr, 0 / Return Address Stored Here
+0354/3010     dca 10 / Deposit address of string to auto-index register 10
+0355/1410     tad i 10 / Load character
+0356/7450     sna / Is it a null? - skip if non-zero
+0357/5753     jmp i PrtStr / yes - return
+0360/4345     jms Type / no - call Type to display
+0361/5355     jmp .-4 / Get next character
+            $Main
+$0200
+
+User Defined Symbol Table
+
+Esc     0033
+Main    0200
+End     0204
+Str     0300
+GetChar 0340
+Type    0345
+PrtStr  0353

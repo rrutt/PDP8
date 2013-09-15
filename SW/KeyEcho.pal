@@ -1,0 +1,81 @@
+// This code segments reads and echoes characters from the keyboard. 
+// It ends when an escape character is detected.
+//
+//
+// Data Segment
+//
+*0100
+HOLD, 0 // Location to hold current character
+BS, 8d // ASCII Backspace
+CR, 13d // ASCII Carriage Return
+LF, 10d // ASCII Line Feed
+Esc, 27d // ASCII Escape
+Space, 32d // ASCII Space
+//
+// Subroutine pointers
+//
+pGetChar, GetChar
+pType, Type
+//
+// Code Segment
+//
+*200
+Main, cla cll // Clear AC and Link
+  kcc // Clear Keyboard Flag
+  tls // Wake Up Printer!
+Loop, jms i pGetChar // Get character
+  dca HOLD // Store it
+  tad HOLD // Compare with Esc by
+  cia // subtracting its value
+  tad Esc // ASCII Escape
+  sna // If not equal then skip next instruction
+    jmp End // else goto end.
+  cla cll // Clear AC
+  tad HOLD // Compare with CR by
+  cia // subtracting its value
+  tad CR // ASCII Carriage Return
+  sna // If not equal then skip next instruction
+    jmp CrLf // else goto line wrap.
+  cla cll // Clear AC
+  tad HOLD // Compare with BS by
+  cia // subtracting its value
+  tad BS // ASCII Backspace
+  sna // If not equal then skip next instruction
+    jmp BkSp // else goto backspace.
+  cla cll // Echo character
+  tad HOLD // by putting it into AC
+  jms i pType // calling Type subroutine.
+  jmp Loop // Get another character
+CrLf, cla cll // CR detected - Clear AC and Link
+  tad CR // Get Carriage Return
+  jms i pType // Print it
+  tad LF // Get Line Feed
+  jms i pType // Print it
+  jmp Loop // Get another character
+BkSp, cla cll // Backspace detected - Clear AC and Link
+  tad BS
+  jms i pType
+  tad Space
+  jms i pType
+  tad BS
+  jms i pType
+  jmp Loop // Get another character
+End, cla cll // CR detected - Clear AC and Link
+  hlt // Halt
+  jmp Main // Continue
+//
+// Subroutine Segment
+//
+*0400
+GetChar,0 // Store Return Address Here
+  ksf // Is Keyboard Flag Raised ?
+    jmp .-1 // No - Loop! (Wait Loop)
+  krb // Yes - Read Character to AC
+  jmp i GetChar // Return
+Type, 0 // Store Return Address Here
+  tsf // Is Printer Ready?
+    jmp .-1 // No - Loop! (Wait Loop)
+  tls // Yes - Print the character!
+  cla cll // Clear AC and Link
+  jmp i Type // Return
+$Main
