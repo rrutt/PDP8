@@ -7,7 +7,7 @@ The development of digital computers has occurred within the single lifetime of 
 [Wikipedia "Computer" article](http://en.wikipedia.org/wiki/Computer)
 
 Programmable digital computers execute software written in a variety of programming languages.
-Most software written today is written in a high-level language processed by a _[compiler](http://en.wikipedia.org/wiki/Compiler)_ or _[interpreter](http://en.wikipedia.org/wiki/Interpreter_(computing))_.
+Most software written today is written in a high-level language processed by a [compiler](http://en.wikipedia.org/wiki/Compiler) or [interpreter](http://en.wikipedia.org/wiki/Interpreted_language).
 The central processing units (CPUs) of computers actually process lower-level instructions produced by the compilers and interpreters.
 In earlier decades software programmers worked directly with the CPU instructions using _[Assembly Language](http://en.wikipedia.org/wiki/Assembly_language)_.
 
