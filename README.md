@@ -93,7 +93,7 @@ The **Hello.pal** assembly language source code appears in the emulator's Editor
 
 Press the "Esc" key (or the "F10" key) to exit text edit mode and return to the Editor/Assembler menu.
 
-Press the "A" key to assemble the code into the emulator Randam Access Memory (RAM).
+Press the "A" key to assemble the code into the emulator Random Access Memory (RAM).
 
 When prompted "Do want a list file (y/n) ?" type "y" followed by the "Enter" key.
 Enter "hello.lst" followed by the "Enter" key to save the listing file.
@@ -121,7 +121,7 @@ To really appreciate the simple elegance underlying all computer software, spend
 
 Here is a sample debugging session using the "Hello World" program **hello.pal**
 
-From the PDP-8 Emulator main screen, press the "D" key to entery the Debug screen.
+From the PDP-8 Emulator main screen, press the "D" key to enter the Debug screen.
 
 Type "r" followed by the "Enter" key to reset the emulated PDP-8 memory and registers to all zeros.
 
@@ -129,7 +129,7 @@ Type "l hello.lst" followed by the "Enter" key to load the assembled "Hello Worl
 This loader command in the emulator interprets the octal address/data pairs that appear in the left margin of the assembly language listing file and loads the appropriate values into the emulated Random Access Memory (RAM).
 The **$0200** line near the bottom of the listing, prior to the symbol table dump, instructs the emulator to set the Program Counter (PC) address.
 
-Type "u" followed by then enter key to un-assemble the instruction at the current address, meaning show the mnemonic symbols for that instruction.
+Type "u" followed by the enter key to un-assemble the instruction at the current address, meaning show the mnemonic symbols for that instruction.
 
 Press the space bar once to single-step execute the instruction at the current address of the Program Counter.
 The next instruction is automatically un-assembled after the instruction completes.
@@ -162,7 +162,7 @@ A Java implementation of a PDP-8 emulator includes several peripheral devices, i
 
 [A PDP-8/E Simulator in Java](http://www.vandermark.ch/pdp8/index.php?n=PDP8.Emulator)
 
-The Java emulator does not read the *.LST (*.OBJ) paper tape format allowed by the DOSBox compatible PDP-8 Emulator
+The Java emulator does not read the .LST/.OBJ) paper tape format allowed by the DOSBox compatible PDP-8 Emulator
 Instead we need to generate a Read-In Mode (RIM) paper tape file using a custom program provided here.
 
 In the **C:\PDP8** folder, double-click the **LST-to-RIM.bat** batch script.
@@ -196,7 +196,7 @@ The paper tape graphic in the **PC8E** window should proceed to the left.
 Click the **Halt** toggle switch graphic in the **PDP-8/E** console panel window to halt the RIM loader program.
 Click the **Halt** toggle again to return it to its "up" position.
 
-Click the "4" toggle button in the **SWITCH REGISTER** section of the **PDP-8/E** console panel window to left it up to encode an octal 0200 start address into the Switch Register.
+Click the "4" toggle button in the **SWITCH REGISTER** section of the **PDP-8/E** console panel window to lift it up to encode an octal 0200 start address into the Switch Register.
 
 Click the "AL" toggle to Address Load the 0200 address into the Program Counter memory address.
 
