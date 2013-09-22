@@ -53,7 +53,7 @@ This marks comments in green, and numeric values in orange, so they stand out.
 
 ## Setting up the PDP-8 Assembly Language Studio on Microsoft Windows
 
-The default scripts in this repository assume it resides on you local workstation in the folder **C:\PDP8**
+The default scripts in this repository assume it resides on your local workstation in the folder **C:\PDP8**
 
 This can be achieved by clone the repository with the following commands in a Command Prompt window:
 
