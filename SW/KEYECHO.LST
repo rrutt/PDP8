@@ -1,4 +1,5 @@
             // This code segments reads and echoes characters from the keyboard. 
+            // It supports simple backspace correction of typed characters.
             // It ends when an escape character is detected.
             //
             //
@@ -27,24 +28,24 @@
 0204/3100     dca HOLD // Store it
 0205/1100     tad HOLD // Compare with Esc by
 0206/7041     cia // subtracting its value
-0207/1104     tad Esc // ASCII Escape
+0207/1104     tad Esc // from ASCII Escape
 0210/7450     sna // If not equal then skip next instruction
 0211/5250       jmp End // else goto end.
 0212/7300     cla cll // Clear AC
 0213/1100     tad HOLD // Compare with CR by
 0214/7041     cia // subtracting its value
-0215/1102     tad CR // ASCII Carriage Return
+0215/1102     tad CR // from ASCII Carriage Return
 0216/7450     sna // If not equal then skip next instruction
 0217/5232       jmp CrLf // else goto line wrap.
 0220/7300     cla cll // Clear AC
 0221/1100     tad HOLD // Compare with BS by
 0222/7041     cia // subtracting its value
-0223/1101     tad BS // ASCII Backspace
+0223/1101     tad BS // from ASCII Backspace
 0224/7450     sna // If not equal then skip next instruction
 0225/5240       jmp BkSp // else goto backspace.
 0226/7300     cla cll // Echo character
 0227/1100     tad HOLD // by putting it into AC
-0230/4507     jms i pType // calling Type subroutine.
+0230/4507     jms i pType // and calling Type subroutine.
 0231/5203     jmp Loop // Get another character
 0232/7300   CrLf, cla cll // CR detected - Clear AC and Link
 0233/1102     tad CR // Get Carriage Return
@@ -53,11 +54,11 @@
 0236/4507     jms i pType // Print it
 0237/5203     jmp Loop // Get another character
 0240/7300   BkSp, cla cll // Backspace detected - Clear AC and Link
-0241/1101     tad BS
+0241/1101     tad BS // Echo backspace to terminal to move cursor back
 0242/4507     jms i pType
-0243/1105     tad Space
+0243/1105     tad Space // Type a space to erase prior character
 0244/4507     jms i pType
-0245/1101     tad BS
+0245/1101     tad BS // Backspace again to prepare for next character echo.
 0246/4507     jms i pType
 0247/5203     jmp Loop // Get another character
 0250/7300   End, cla cll // CR detected - Clear AC and Link
@@ -72,12 +73,14 @@
 0402/5201       jmp .-1 // No - Loop! (Wait Loop)
 0403/6036     krb // Yes - Read Character to AC
 0404/5600     jmp i GetChar // Return
+            //
 0405/0000   Type, 0 // Store Return Address Here
 0406/6041     tsf // Is Printer Ready?
 0407/5206       jmp .-1 // No - Loop! (Wait Loop)
 0410/6046     tls // Yes - Print the character!
 0411/7300     cla cll // Clear AC and Link
 0412/5605     jmp i Type // Return
+            //
             $Main
 $0200
 

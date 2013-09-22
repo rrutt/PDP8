@@ -16,14 +16,18 @@
 //
 // Grid Size.
 //
+// Grid dimensions for emulator "Run PDP-8 Screen".
+numRows=15d
+numCols=77d
+numCells=1155d
 // Grid dimensions for use with PDP-8 emulator debug memory display.
 //numRows=12d
 //numCols=8d
 //numCells=96d
 // Grid dimensions to maximize use of VT-100 terminal in PDP-8/E Java Emulator http://www.vandermark.ch/pdp8/index.php
-numRows=22d
-numCols=80d
-numCells=1760d // 22 rows by 80 cols. Word per cell implies 14 pages of 128 words per page.
+//numRows=22d
+//numCols=80d
+//numCells=1760d // 22 rows by 80 cols. Word per cell implies 14 pages of 128 words per page.
 //
 numColP1=numCols+1
 numColM1=numCols-1

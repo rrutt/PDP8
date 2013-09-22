@@ -27,7 +27,7 @@ The simplicity of the PDP-8 architecture, and the elegance of Turbo Pascal, allo
 
 Running the PDP-8 emulator in 64-bit versions of Windows, such as Windows 7, requires the use of the [DOSBox](http://www.dosbox.com/download.php?main=1) emulator to run the PDP-8 emulator.
 Versions of DOSBox also exist for non-Windows operating systems.
-DOSBox serves the historical computer game community but also serves for running other MS-DOS software.
+DOSBox serves the historical computer game community but also runs other MS-DOS software.
 
 
 ## PDP-8 Assembly Language
@@ -37,7 +37,7 @@ Digital Equipment Corp. mounted several components onto a printed circuit board 
 This approach was soon superseded by [integrated circuit](http://en.wikipedia.org/wiki/Integrated_circuit) technology, but was a breakthrough approach in the 1960's.
 
 In order to keep the Flip-Chip module count to a minimum, the PDP-8 instruction set was extremely minimal even for its day.
-This minimalism serves as an excellent teaching environment for the basics of digital computation.
+This minimalism provides an excellent teaching environment for the basics of digital software computation.
 
 Here is a primer for the PDP-8 Assembly Language, also known as PAL:
 

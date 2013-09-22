@@ -1,4 +1,5 @@
 // This code segments reads and echoes characters from the keyboard. 
+// It supports simple backspace correction of typed characters.
 // It ends when an escape character is detected.
 //
 //
@@ -27,24 +28,24 @@ Loop, jms i pGetChar // Get character
   dca HOLD // Store it
   tad HOLD // Compare with Esc by
   cia // subtracting its value
-  tad Esc // ASCII Escape
+  tad Esc // from ASCII Escape
   sna // If not equal then skip next instruction
     jmp End // else goto end.
   cla cll // Clear AC
   tad HOLD // Compare with CR by
   cia // subtracting its value
-  tad CR // ASCII Carriage Return
+  tad CR // from ASCII Carriage Return
   sna // If not equal then skip next instruction
     jmp CrLf // else goto line wrap.
   cla cll // Clear AC
   tad HOLD // Compare with BS by
   cia // subtracting its value
-  tad BS // ASCII Backspace
+  tad BS // from ASCII Backspace
   sna // If not equal then skip next instruction
     jmp BkSp // else goto backspace.
   cla cll // Echo character
   tad HOLD // by putting it into AC
-  jms i pType // calling Type subroutine.
+  jms i pType // and calling Type subroutine.
   jmp Loop // Get another character
 CrLf, cla cll // CR detected - Clear AC and Link
   tad CR // Get Carriage Return
@@ -53,11 +54,11 @@ CrLf, cla cll // CR detected - Clear AC and Link
   jms i pType // Print it
   jmp Loop // Get another character
 BkSp, cla cll // Backspace detected - Clear AC and Link
-  tad BS
+  tad BS // Echo backspace to terminal to move cursor back
   jms i pType
-  tad Space
+  tad Space // Type a space to erase prior character
   jms i pType
-  tad BS
+  tad BS // Backspace again to prepare for next character echo.
   jms i pType
   jmp Loop // Get another character
 End, cla cll // CR detected - Clear AC and Link
@@ -72,10 +73,12 @@ GetChar,0 // Store Return Address Here
     jmp .-1 // No - Loop! (Wait Loop)
   krb // Yes - Read Character to AC
   jmp i GetChar // Return
+//
 Type, 0 // Store Return Address Here
   tsf // Is Printer Ready?
     jmp .-1 // No - Loop! (Wait Loop)
   tls // Yes - Print the character!
   cla cll // Clear AC and Link
   jmp i Type // Return
+//
 $Main

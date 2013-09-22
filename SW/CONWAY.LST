@@ -16,14 +16,18 @@
             //
             // Grid Size.
             //
+            // Grid dimensions for emulator "Run PDP-8 Screen".
+            numRows=15d
+            numCols=77d
+            numCells=1155d
             // Grid dimensions for use with PDP-8 emulator debug memory display.
             //numRows=12d
             //numCols=8d
             //numCells=96d
             // Grid dimensions to maximize use of VT-100 terminal in PDP-8/E Java Emulato
-            numRows=22d
-            numCols=80d
-            numCells=1760d // 22 rows by 80 cols. Word per cell implies 14 pages of 128 w
+            //numRows=22d
+            //numCols=80d
+            //numCells=1760d // 22 rows by 80 cols. Word per cell implies 14 pages of 128
             //
             numColP1=numCols+1
             numColM1=numCols-1
@@ -74,8 +78,8 @@
 0030/7777   cMinusOne, -1
 0031/7776   cMinusTwo, -2
 0032/7775   cMinusThree, -3
-0033/0120   cNumCols, numCols
-0034/3340   cNumCells, numCells
+0033/0115   cNumCols, numCols
+0034/2203   cNumCells, numCells
             //
             // String and Character Constants.
             //
@@ -128,13 +132,13 @@
             // Neighbor Cell Offsets.
             //
 0112/0112   cellOffsets, . // Base address to load into auto-index register.
-0113/7657   coNW, -numColP1
-0114/7660   coN, -numCols
-0115/7661   coNE, -numColM1
+0113/7662   coNW, -numColP1
+0114/7663   coN, -numCols
+0115/7664   coNE, -numColM1
 0116/0001   coE, +1
-0117/0121   coSE, numColP1
-0120/0120   coS, numCols
-0121/0117   coSW, numColM1
+0117/0116   coSE, numColP1
+0120/0115   coS, numCols
+0121/0114   coSW, numColM1
 0122/7777   coW, -1
 0123/0000   coSelf, 0 // Terminate loop.
             //
@@ -142,14 +146,14 @@
             //
 0124/2007   pNWWrapCell, NWWrapCell // Extra "northwest" wrap cell.
 0125/2007   pTopWrapRow, CellBuffer-1 // Preceding address for auto-indexing to top wrap 
-0126/2127   pGridCells, CellBuffer+numColM1 // Preceding address for actual cell grid (af
-0127/5467   pBotWrapRow, CellBuffer+numCols+numCellM1 // Preceding address for bottom wra
-0130/5610   pSEWrapCell, CellBuffer+numCols+numCells+numCols // Extra "southeast" wrap ce
+0126/2124   pGridCells, CellBuffer+numColM1 // Preceding address for actual cell grid (af
+0127/4327   pBotWrapRow, CellBuffer+numCols+numCellM1 // Preceding address for bottom wra
+0130/4445   pSEWrapCell, CellBuffer+numCols+numCells+numCols // Extra "southeast" wrap ce
             //
-0131/5347   pNWPairCell, NWWrapCell+numCells // Pair for "northwest" wrap cell (just befo
-0132/5347   pTopPairRow, CellBuffer+numCellM1 // Preceding address for pair for top wrap 
-0133/2127   pBotPairRow, CellBuffer+numColM1 // Preceding address for pair for bottom wra
-0134/2250   pSEPairCell, CellBuffer+numCols+numCols // Pair for "southwest" wrap cell (ju
+0131/4212   pNWPairCell, NWWrapCell+numCells // Pair for "northwest" wrap cell (just befo
+0132/4212   pTopPairRow, CellBuffer+numCellM1 // Preceding address for pair for top wrap 
+0133/2124   pBotPairRow, CellBuffer+numColM1 // Preceding address for pair for bottom wra
+0134/2242   pSEPairCell, CellBuffer+numCols+numCols // Pair for "southwest" wrap cell (ju
             //
             // Subroutine Pointers.
             //
@@ -785,12 +789,12 @@ $0200
 
 User Defined Symbol Table
 
-numRows 0026
-numCols 0120
-numCells3340
-numColP10121
-numColM10117
-numCellM3337
+numRows 0017
+numCols 0115
+numCells2203
+numColP10116
+numColM10114
+numCellM2202
 incrNbrC0100
 decrNbrC7700
 asciiEsc0033
