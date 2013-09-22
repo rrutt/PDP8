@@ -1,7 +1,8 @@
             //
             // Code Segment
             //
-            *0200 // Code Segment starts at 0200o
+            *0200 // Code Segment starts at 0200 octal
+            //
 0200/7300   Main, cla cll // Clear AC and Link
 0201/6046     tls // Wake Up Printer
 0202/1300     tad Str // Get address of output string
@@ -11,37 +12,43 @@
             //
             // Data Segment
             //
-            *0300 // Place String at 0300o
+            *0300 // Place String at 0300 octal
+            //
 0300/0300   Str, . // Str stores its own address
-0301/0110     'Hello World';13d;10d;0 // string to be displayed - ends with null
+0301/0110     'Hello, World!';13d;10d;0 // string to be displayed - ends with null
 0302/0145
 0303/0154
 0304/0154
 0305/0157
-0306/0040
-0307/0127
-0310/0157
-0311/0162
-0312/0154
-0313/0144
-0314/0015
-0315/0012
-0316/0000
+0306/0054
+0307/0040
+0310/0127
+0311/0157
+0312/0162
+0313/0154
+0314/0144
+0315/0041
+0316/0015
+0317/0012
+0320/0000
             //
             // Subroutine Segment
             //
-            *0340 // Subroutines begin at address 0340o
+            *0340 // Subroutines begin at address 0340 octal
+            //
 0340/0000   GetChar, 0 // Return Address Stored Here
 0341/6031     ksf // Is Keyboard Flag Raised ?
 0342/5341       jmp .-1 // No - Loop! (Wait Loop)
 0343/6036     krb // Yes - Read Character to AC
 0344/5740     jmp i GetChar // Return
+            //
 0345/0000   Type, 0 // Return Address Stored Here
 0346/6041     tsf // Is Printer Ready?
 0347/5346       jmp .-1 // No - Loop! (Wait Loop)
 0350/6046     tls // Yes - Print the character!
 0351/7300     cla cll // Clear AC and Link
 0352/5745     jmp i Type // Return
+            //
 0353/0000   PrtStr, 0 // Return Address Stored Here
 0354/3010     dca 10 // Deposit address of string to auto-index register 10
 0355/1410     tad i 10 // Load character
