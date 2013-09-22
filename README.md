@@ -38,7 +38,7 @@ Digital Equipment Corp. mounted several components onto a printed circuit board 
 This approach was soon superseded by [integrated circuit](http://en.wikipedia.org/wiki/Integrated_circuit) technology, but was a breakthrough approach in the 1960's.
 
 Here is an image of the PDP-8 chassis with its Flip-Chip module boards: [PDP-8 boards](http://www.vandermark.ch/pdp8/uploads/PDP8/PDP8.Hardware/pdp8-boards.jpg)
-(Note that this is a later model PDP-8 and the Flip-Chip boards in this image contain some small-scall integrated circuit chips along with discrete electronic components.)
+(Note that this is a later model PDP-8 and the Flip-Chip boards in this image contain some small-scale integrated circuit chips along with discrete electronic components.)
 
 In order to keep the Flip-Chip module count to a minimum, the PDP-8 instruction set was extremely minimal even for its day.
 This minimalism provides an excellent teaching environment for the basics of digital software computation.
