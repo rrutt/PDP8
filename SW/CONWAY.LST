@@ -17,13 +17,13 @@
             // Grid Size.
             //
             // Grid dimensions for emulator "Run PDP-8 Screen".
-            numRows=15d
-            numCols=77d
-            numCells=1155d
+            //numRows=15d
+            //numCols=77d
+            //numCells=1155d
             // Grid dimensions for use with PDP-8 emulator debug memory display.
-            //numRows=12d
-            //numCols=8d
-            //numCells=96d
+            numRows=12d
+            numCols=8d
+            numCells=96d
             // Grid dimensions to maximize use of VT-100 terminal in PDP-8/E Java Emulato
             //numRows=22d
             //numCols=80d
@@ -33,15 +33,15 @@
             numColM1=numCols-1
             numCellM1=numCells-1
             //
-            incrNbrCount=0100 // Increment neighber count in high half word.
-            decrNbrCount=-incrNbrCount // Decrement neighber count in high half word.
-            //
             // ASCII Character Codes.
             //
             asciiEsc=27d // Escape
             asciiSpace=32d // Space (Blank)
             asciiCR=13d // Carriage Return
             asciiLF=10d // Line Feed
+            //
+            incrNbrCount=0100 // Increment neighbor count in high half word.
+            decrNbrCount=-incrNbrCount // Decrement neighbor count in high half word.
             //
             ///
             //
@@ -78,8 +78,8 @@
 0030/7777   cMinusOne, -1
 0031/7776   cMinusTwo, -2
 0032/7775   cMinusThree, -3
-0033/0115   cNumCols, numCols
-0034/2203   cNumCells, numCells
+0033/0010   cNumCols, numCols
+0034/0140   cNumCells, numCells
             //
             // String and Character Constants.
             //
@@ -98,94 +98,96 @@
 0051/0110
 0052/0000     0
 0053/0053   szSeed, . // Random seed display message.
-0054/0123     'Seed: '
-0055/0145
-0056/0145
-0057/0144
-0060/0072
-0061/0040
-0062/0000     0
-0063/0063   szGeneration, . // Generation display message.
-0064/0040     '  Generation: '
-0065/0040
-0066/0107
-0067/0145
-0070/0156
+0054/0040     '  Seed: '
+0055/0040
+0056/0123
+0057/0145
+0060/0145
+0061/0144
+0062/0072
+0063/0040
+0064/0000     0
+0065/0065   szGeneration, . // Generation display message.
+0066/0040     '  Generation: '
+0067/0040
+0070/0107
 0071/0145
-0072/0162
-0073/0141
-0074/0164
-0075/0151
-0076/0157
-0077/0156
-0100/0072
-0101/0040
-0102/0000     0
-0103/0103   szNewLine, . // Carriage-Return/Line-Feed combination.
-0104/0015     asciiCR;asciiLF
-0105/0012
-0106/0000     0
-0107/0040   charSpace, asciiSpace
-0110/0060   charZero, '0'
-0111/0052   charStar, '*'
+0072/0156
+0073/0145
+0074/0162
+0075/0141
+0076/0164
+0077/0151
+0100/0157
+0101/0156
+0102/0072
+0103/0040
+0104/0000     0
+0105/0105   szNewLine, . // Carriage-Return/Line-Feed combination.
+0106/0015     asciiCR;asciiLF
+0107/0012
+0110/0000     0
+0111/0040   charSpace, asciiSpace
+0112/0060   charZero, '0'
+0113/0052   charStar, '*'
             //
             // Neighbor Cell Offsets.
             //
-0112/0112   cellOffsets, . // Base address to load into auto-index register.
-0113/7662   coNW, -numColP1
-0114/7663   coN, -numCols
-0115/7664   coNE, -numColM1
-0116/0001   coE, +1
-0117/0116   coSE, numColP1
-0120/0115   coS, numCols
-0121/0114   coSW, numColM1
-0122/7777   coW, -1
-0123/0000   coSelf, 0 // Terminate loop.
+0114/0114   cellOffsets, . // Base address to load into auto-index register.
+0115/7767   coNW, -numColP1
+0116/7770   coN, -numCols
+0117/7771   coNE, -numColM1
+0120/0001   coE, +1
+0121/0011   coSE, numColP1
+0122/0010   coS, numCols
+0123/0007   coSW, numColM1
+0124/7777   coW, -1
+0125/0000   coSelf, 0 // Terminate loop.
             //
             // Array Pointers.
             //
-0124/2007   pNWWrapCell, NWWrapCell // Extra "northwest" wrap cell.
-0125/2007   pTopWrapRow, CellBuffer-1 // Preceding address for auto-indexing to top wrap 
-0126/2124   pGridCells, CellBuffer+numColM1 // Preceding address for actual cell grid (af
-0127/4327   pBotWrapRow, CellBuffer+numCols+numCellM1 // Preceding address for bottom wra
-0130/4445   pSEWrapCell, CellBuffer+numCols+numCells+numCols // Extra "southeast" wrap ce
+0126/2007   pNWWrapCell, NWWrapCell // Extra "northwest" wrap cell.
+0127/2007   pTopWrapRow, CellBuffer-1 // Preceding address for auto-indexing to top wrap 
+0130/2017   pGridCells, CellBuffer+numColM1 // Preceding address for actual cell grid (af
+0131/2157   pBotWrapRow, CellBuffer+numCols+numCellM1 // Preceding address for bottom wra
+0132/2170   pSEWrapCell, CellBuffer+numCols+numCells+numCols // Extra "southeast" wrap ce
             //
-0131/4212   pNWPairCell, NWWrapCell+numCells // Pair for "northwest" wrap cell (just befo
-0132/4212   pTopPairRow, CellBuffer+numCellM1 // Preceding address for pair for top wrap 
-0133/2124   pBotPairRow, CellBuffer+numColM1 // Preceding address for pair for bottom wra
-0134/2242   pSEPairCell, CellBuffer+numCols+numCols // Pair for "southwest" wrap cell (ju
+0133/2147   pNWPairCell, NWWrapCell+numCells // Pair for "northwest" wrap cell (just befo
+0134/2147   pTopPairRow, CellBuffer+numCellM1 // Preceding address for pair for top wrap 
+0135/2017   pBotPairRow, CellBuffer+numColM1 // Preceding address for pair for bottom wra
+0136/2030   pSEPairCell, CellBuffer+numCols+numCols // Pair for "southwest" wrap cell (ju
             //
             // Subroutine Pointers.
             //
-0135/1200   SkipIfChar, srSkipIfChar
-0136/1206   GetChar, srGetChar
-0137/1213   PutChar, srPutChar
-0140/1221   PutString, srPutString
-0141/1230   PutNewLine, srPutNewLine
-0142/1235   PutOctal, srPutOctal
-0143/1302   SetRand, srSetRand
-0144/1305   GetRand, srGetRand
-0145/1320   EmuMUY, srEmuMUY
-0146/0405   ClrGeneration, srClrGeneration
-0147/0400   LoadSeed, srLoadSeed
-0150/0413   ShowSeedAndGeneration, srShowSeedAndGeneration
-0151/0433   ClrWrap, srClrWrap
-0152/0454   ClrGrid, srClrGrid
-0153/0535   RandomizeGrid, srRandomizeGrid
-0154/0467   InitGrid, srInitGrid
-0155/0600   ShowGrid, srShowGrid
-0156/0644   ProcessGeneration, srProcessGeneration
-0157/1045   CloneGrid, srCloneGrid
-0160/1066   CloneCell, srCloneCell
-0161/0723   CellBorn, srCellBorn
-0162/0737   CellDied, srCellDied
-0163/0751   CellNeighbors, srCellNeighbors
-0164/1000   ProcWrap, srProcWrap
+0137/1200   SkipIfChar, srSkipIfChar
+0140/1206   GetChar, srGetChar
+0141/1213   PutChar, srPutChar
+0142/1221   PutString, srPutString
+0143/1230   PutNewLine, srPutNewLine
+0144/1235   PutOctal, srPutOctal
+0145/1302   SetRand, srSetRand
+0146/1305   GetRand, srGetRand
+0147/1320   EmuMUY, srEmuMUY
+0150/0405   ClrGeneration, srClrGeneration
+0151/0400   LoadSeed, srLoadSeed
+0152/0413   ShowSeedAndGeneration, srShowSeedAndGeneration
+0153/0433   ClrWrap, srClrWrap
+0154/0454   ClrGrid, srClrGrid
+0155/0535   RandomizeGrid, srRandomizeGrid
+0156/0467   InitGrid, srInitGrid
+0157/0600   ShowGrid, srShowGrid
+0160/0644   ProcessGeneration, srProcessGeneration
+0161/1045   CloneGrid, srCloneGrid
+0162/1066   CloneCell, srCloneCell
+0163/0723   CellBorn, srCellBorn
+0164/0737   CellDied, srCellDied
+0165/0751   CellNeighbors, srCellNeighbors
+0166/1000   ProcWrap, srProcWrap
             //
             // Global Variables.
             //
-0165/0000   gGeneration, 0
-0166/0000   gSeed, 0
+0167/0000   gGeneration, 0
+0170/0000   gSeed, 0
             //
             ///
             //
@@ -193,25 +195,28 @@
             //
             *0200
 0200/7300   Main, cla cll // Clear AC and Link.
-0201/6046     tls / Wake Up Printer 
-0202/4547     jms i LoadSeed
-0203/4546     jms i ClrGeneration  
-0204/4550     jms i ShowSeedAndGeneration
-0205/4551     jms i ClrWrap
-0206/4552     jms i ClrGrid
-0207/4554     jms i InitGrid 
-0210/4557     jms i CloneGrid
-0211/4555     jms i ShowGrid
-0212/4556   MainLoop, jms i ProcessGeneration
-0213/4557     jms i CloneGrid
-0214/4555     jms i ShowGrid
-0215/4535     jms i SkipIfChar
-0216/5212     jmp MainLoop
-0217/7402   MainPause, hlt // Halt.
-0220/5212     jmp MainLoop // Resume loop if user continues via front-panel.
-0221/7300   End, cla cll // Clear AC and Link.
-0222/7402     hlt // Halt.
-0223/5200     jmp Main // Restart if user continues via front panel.
+0201/6046     tls / Wake Up Printer (terminal display)
+0202/4551     jms i LoadSeed
+0203/4550     jms i ClrGeneration  
+0204/4552     jms i ShowSeedAndGeneration
+0205/4553     jms i ClrWrap
+0206/4554     jms i ClrGrid
+0207/4556     jms i InitGrid 
+0210/4561     jms i CloneGrid
+0211/4557     jms i ShowGrid
+0212/4537     jms i SkipIfChar
+0213/5215       jmp MainLoop
+0214/5222     jmp MainPause
+0215/4560   MainLoop, jms i ProcessGeneration
+0216/4561     jms i CloneGrid
+0217/4557     jms i ShowGrid
+0220/4537     jms i SkipIfChar
+0221/5215       jmp MainLoop
+0222/7402   MainPause, hlt // Halt.
+0223/5215     jmp MainLoop // Resume loop if user continues via front-panel.
+0224/7300   End, cla cll // Clear AC and Link.
+0225/7402     hlt // Halt.
+0226/5200     jmp Main // Restart if user continues via front panel.
             //
             // Application Subroutines.
             //
@@ -222,9 +227,9 @@
             // Updates: Global value gSeed.
             //
 0400/0000   srLoadSeed, 0
-0401/7300     cla cll
+0401/7300     cla cll // Clear AC and Link.
 0402/7404     osr // Or the Switch Register bits into AC.
-0403/3166     dca gSeed // Save random seed.
+0403/3170     dca gSeed // Save random seed.
 0404/5600     jmp i srLoadSeed // Return
             //
             // Subroutine: Clear Generation.
@@ -233,9 +238,9 @@
             //
 0405/0000   srClrGeneration, 0
 0406/7300     cla cll
-0407/3165     dca gGeneration
+0407/3167     dca gGeneration
 0410/1035     tad szClrScrn
-0411/4540     jms i PutString
+0411/4542     jms i PutString
 0412/5605     jmp i srClrGeneration // Return
             //
             // Subroutine: Show Seed.
@@ -245,18 +250,18 @@
 0413/0000   srShowSeedAndGeneration, 0
 0414/7300     cla cll
 0415/1043     tad szCrsrHome
-0416/4540     jms i PutString
+0416/4542     jms i PutString
 0417/1053     tad szSeed
-0420/4540     jms i PutString
+0420/4542     jms i PutString
 0421/7300     cla cll
-0422/1166     tad gSeed
-0423/4542     jms i PutOctal 
-0424/1063     tad szGeneration
-0425/4540     jms i PutString
+0422/1170     tad gSeed
+0423/4544     jms i PutOctal 
+0424/1065     tad szGeneration
+0425/4542     jms i PutString
 0426/7300     cla cll
-0427/1165     tad gGeneration
-0430/4542     jms i PutOctal 
-0431/4541     jms i PutNewLine
+0427/1167     tad gGeneration
+0430/4544     jms i PutOctal 
+0431/4543     jms i PutNewLine
 0432/5613     jmp i srShowSeedAndGeneration // Return.
             //
             // Subroutine: Clear Wrap rows and cells.
@@ -265,14 +270,14 @@
             //  
 0433/0000   srClrWrap, 0
 0434/7300     cla cll
-0435/3524     dca i pNWWrapCell // Clear corner wrap cells.
-0436/3530     dca i pSEWrapCell
+0435/3526     dca i pNWWrapCell // Clear corner wrap cells.
+0436/3532     dca i pSEWrapCell
 0437/1033     tad cNumCols // Clear top and bottom wrap rows.
 0440/7041     cia // Negate.
 0441/3253     dca CWLoopCount
-0442/1125     tad pTopWrapRow // Load address of top wrap row.
+0442/1127     tad pTopWrapRow // Load address of top wrap row.
 0443/3011     dca air1 // Set 1st index register to loop thru top wrap row.
-0444/1127     tad pBotWrapRow // Load address of bottom wrap row.
+0444/1131     tad pBotWrapRow // Load address of bottom wrap row.
 0445/3012     dca air2 // Set 2nd index register to loop thru bottom wrap row.
 0446/3411   CWWrapLoop, dca i air1 // Clear indirectly-indexed cells.
 0447/3412     dca i air2
@@ -289,7 +294,7 @@
 0455/1034     tad cNumCells
 0456/7041     cia // Negate
 0457/3266     dca CGLoopCount
-0460/1126     tad pGridCells // Load address of grid cells.
+0460/1130     tad pGridCells // Load address of grid cells.
 0461/3010     dca air0 // Set index register to loop thru grid cell array.
 0462/3410   CGGridLoop, dca i air0 // Clear next grid cell.
 0463/2266     isz CGLoopCount
@@ -303,11 +308,11 @@
             //
 0467/0000   srInitGrid, 0
 0470/7300     cla cll
-0471/1166     tad gSeed // Load random seed global value into AC.
+0471/1170     tad gSeed // Load random seed global value into AC.
 0472/7450     sna // Skip if non-zero AC.
 0473/5277       jmp IGFixedPattern // Else, zero means use fixed pattern.
-0474/4543     jms i SetRand // Set the value as the pseudo-random seed.
-0475/4553     jms i RandomizeGrid // Use the random pattern generator.
+0474/4545     jms i SetRand // Set the value as the pseudo-random seed.
+0475/4555     jms i RandomizeGrid // Use the random pattern generator.
 0476/5667     jmp i srInitGrid // And return.  
 0477/1321   IGFixedPattern, tad szIGPattern // Load pattern preceding address.
 0500/3010     dca air0 // And save in auto-indexing register.
@@ -317,14 +322,14 @@
 0504/7450     sna // Skip if non-zero.
 0505/5315       jmp IGFinish // Else, finish up if AC = 0.
 0506/1030     tad cMinusOne // Subtract 1 to make it 0-based.
-0507/4545     jms i EmuMUY // Multiply by column count.
+0507/4547     jms i EmuMUY // Multiply by column count.
 0510/0000   IGMultipler, 0 // Self-modified parameter value.
 0511/1410     tad i air0 // Add in column offset (1-based).
-0512/1126     tad pGridCells // Add in grid base preceding address.
-0513/4561     jms i CellBorn // Process new cell birth.
+0512/1130     tad pGridCells // Add in grid base preceding address.
+0513/4563     jms i CellBorn // Process new cell birth.
 0514/5303     jmp IGLoop // And loop to next cell pattern.
-0515/4564   IGFinish, jms i ProcWrap // Process wrap row neighbor counts.
-0516/4551     jms i ClrWrap // Clear wrap rows for next iteration.
+0515/4566   IGFinish, jms i ProcWrap // Process wrap row neighbor counts.
+0516/4553     jms i ClrWrap // Clear wrap rows for next iteration.
 0517/5667     jmp i srInitGrid // Return.
 0520/0000   IGCurrAddr, 0
 0521/0521   szIGPattern, . // Null-terminated row/col offset list.
@@ -345,12 +350,12 @@
             //
 0535/0000   srRandomizeGrid, 0
 0536/7300     cla cll
-0537/1126     tad pGridCells
+0537/1130     tad pGridCells
 0540/3365     dca RGCurrCell
-0541/1126     tad pGridCells
+0541/1130     tad pGridCells
 0542/1034     tad cNumCells  // Compute last cell pointer for grid.
 0543/3366     dca RGLastCell
-0544/4544   RGLoop, jms i GetRand // Get a random integer.
+0544/4546   RGLoop, jms i GetRand // Get a random integer.
 0545/0026     and mRandBits  // Only keep 6 bits (0 to n-1).
 0546/7001     iac // Add 1 (1 to n).
 0547/1365     tad RGCurrCell  // Add random offset to cell pointer.
@@ -362,10 +367,10 @@
 0555/5362       jmp RGFinish // Else, finish up if negative.
 0556/7300     cla cll
 0557/1365     tad RGCurrCell // Load address of current cell into AC.
-0560/4561     jms i CellBorn // Process new cell birth.
+0560/4563     jms i CellBorn // Process new cell birth.
 0561/5344     jmp RGLoop
-0562/4564   RGFinish, jms i ProcWrap // Process wrap row neighbor counts.
-0563/4551     jms i ClrWrap // Clear wrap rows for next iteration.
+0562/4566   RGFinish, jms i ProcWrap // Process wrap row neighbor counts.
+0563/4553     jms i ClrWrap // Clear wrap rows for next iteration.
 0564/5735     jmp i srRandomizeGrid // Return.
 0565/0000   RGCurrCell, 0
 0566/0000   RGLastCell, 0
@@ -378,7 +383,7 @@
             //
 0600/0000   srShowGrid, 0
 0601/7300     cla cll
-0602/1126     tad pGridCells // Load address of grid array.
+0602/1130     tad pGridCells // Load address of grid array.
 0603/3010     dca air0 // Store pointer in auto-index register.
 0604/1033     tad cNumCols
 0605/7041     cia
@@ -393,18 +398,18 @@
 0616/0021     and mCellOnLo // Mask just "on" bit in lo half (current state).
 0617/7440     sza // Skip if zero (treat as dead).
 0620/5223       jmp SGLive // Else treat as live.
-0621/1107   SGDead, tad charSpace
+0621/1111   SGDead, tad charSpace
 0622/5225     jmp SGPutChar
 0623/7300   SGLive, cla cll
-0624/1111     tad charStar
-0625/4537   SGPutChar, jms i PutChar // Display space or star based on cell status.
+0624/1113     tad charStar
+0625/4541   SGPutChar, jms i PutChar // Display space or star based on cell status.
 0626/2241     isz SGLoopCount // See if we have processed all grid cells.
 0627/5232       jmp SGRowCheck // If not, check if we've reached the end of a row.
-0630/4541     jms i PutNewLine
+0630/4543     jms i PutNewLine
 0631/5600     jmp i srShowGrid // Return.
 0632/2243   SGRowCheck, isz SGColCount // Increment columns-per-row counter
 0633/5214       jmp SGLoop // Loop to next cell if non-zero.
-0634/4541     jms i PutNewLine
+0634/4543     jms i PutNewLine
 0635/7300     cla cll
 0636/1242     tad SGMColCount // Reset col-per-row counter.
 0637/3243     dca SGColCount
@@ -417,10 +422,10 @@
             // No parameter.
             //
 0644/0000   srProcessGeneration, 0
-0645/2165     isz gGeneration // Increment generation # (Never will be zero, so will neve
-0646/4550     jms i ShowSeedAndGeneration
+0645/2167     isz gGeneration // Increment generation # (Never will be zero, so will neve
+0646/4552     jms i ShowSeedAndGeneration
 0647/7300     cla cll
-0650/1126     tad pGridCells
+0650/1130     tad pGridCells
 0651/3320     dca PGCurrAddr // Initialize current cell address.
 0652/1034     tad cNumCells // Setup counter for processing each grid cell.
 0653/7041     cia // Negate.
@@ -450,15 +455,15 @@
 0703/7440     sza // Skip if = 0 (count = 3).
 0704/5313       jmp PGCheckLoop // Else cell stays dead so process next cell.
 0705/1320   PGBorn, tad PGCurrAddr // Load address of current cell. (AC was already zero.
-0706/4561     jms i CellBorn // Create new cell.
+0706/4563     jms i CellBorn // Create new cell.
 0707/5313     jmp PGCheckLoop // Process next cell.
 0710/7300   PGDied, cla cll
 0711/1320     tad PGCurrAddr // Load address of current cell.
-0712/4562     jms i CellDied // Kill cell, then process next cell.
+0712/4564     jms i CellDied // Kill cell, then process next cell.
 0713/2321   PGCheckLoop, isz PGLoopCount
 0714/5255       jmp PGCellLoop // Continue looping if non-zero. 
-0715/4564   PGFinish, jms i ProcWrap // Process wrapped neighbor counts.
-0716/4551     jms i ClrWrap // Clear wrapped counts for next iteration.  
+0715/4566   PGFinish, jms i ProcWrap // Process wrapped neighbor counts.
+0716/4553     jms i ClrWrap // Clear wrapped counts for next iteration.  
 0717/5644     jmp i srProcessGeneration // Return
 0720/0000   PGCurrAddr, 0
 0721/0000   PGLoopCount, 0
@@ -475,14 +480,13 @@
 0730/7501     mqa // "Or" in current cell state.
 0731/3736     dca i CBCellAddr // And store back in cell grid position.
 0732/1336     tad CBCellAddr // Reload grid cell address.
-0733/4563     jms i CellNeighbors // Increment cell neighbor counts
+0733/4565     jms i CellNeighbors // Increment cell neighbor counts
 0734/0100       incrNbrCount
 0735/5723     jmp i srCellBorn // Return when done.
 0736/0000   CBCellAddr, 0
             //
             // Subroutine: Cell Died.
             // Parameter: AC contains address of cell.
-            // Registers: air7
             //
 0737/0000   srCellDied, 0
 0740/3350     dca CDCellAddr
@@ -490,7 +494,7 @@
 0742/0023     and mCellOffHi // Clear "live" bit in hi half word.
 0743/3750     dca i CDCellAddr // And store back in cell grid position.
 0744/1350     tad CDCellAddr // Reload grid cell address.
-0745/4563     jms i CellNeighbors // Increment cell neighbor counts
+0745/4565     jms i CellNeighbors // Increment cell neighbor counts
 0746/7700       decrNbrCount
 0747/5737     jmp i srCellDied // Return when done.
 0750/0000   CDCellAddr, 0
@@ -504,7 +508,7 @@
 0753/1751     tad i srCellNeighbors // Load increment or decrement.
 0754/3373     dca CNIncrDecr
 0755/2351     isz srCellNeighbors // Prepare for skip-return.
-0756/1112     tad cellOffsets // Load index register with address before neighbor cell of
+0756/1114     tad cellOffsets // Load index register with address before neighbor cell of
 0757/3017     dca air7
 0760/1417   CNLoop, tad i air7 // Load offset to a neighbor cell.
 0761/7450     sna // Skip if non-zero
@@ -527,21 +531,21 @@
             //  
 1000/0000   srProcWrap, 0
 1001/7300     cla cll
-1002/1524     tad i pNWWrapCell // Load corner wrap cell.
+1002/1526     tad i pNWWrapCell // Load corner wrap cell.
 1003/0025     and mHiHalf // Mask to only keep hi half.
-1004/1531     tad i pNWPairCell // Add in grid pair cell state.
-1005/3531     dca i pNWPairCell // And save back to grid.
-1006/1530     tad i pSEWrapCell // Repeat for other corner wrap/pair.
+1004/1533     tad i pNWPairCell // Add in grid pair cell state.
+1005/3533     dca i pNWPairCell // And save back to grid.
+1006/1532     tad i pSEWrapCell // Repeat for other corner wrap/pair.
 1007/0025     and mHiHalf
-1010/1534     tad i pSEPairCell
-1011/3534     dca i pSEPairCell
-1012/1125     tad pTopWrapRow // Load address of top wrap row.
+1010/1536     tad i pSEPairCell
+1011/3536     dca i pSEPairCell
+1012/1127     tad pTopWrapRow // Load address of top wrap row.
 1013/3011     dca air1 // Set 1st index register to loop thru top wrap row.
-1014/1127     tad pBotWrapRow // Load address of bottom wrap row.
+1014/1131     tad pBotWrapRow // Load address of bottom wrap row.
 1015/3012     dca air2 // Set 2nd index register to loop thru bottom wrap row.
-1016/1132     tad pTopPairRow // Load address of top pair row.
+1016/1134     tad pTopPairRow // Load address of top pair row.
 1017/3243     dca PWTopAddr // Save in local variable.
-1020/1133     tad pBotPairRow // Load address of bottom pair row.
+1020/1135     tad pBotPairRow // Load address of bottom pair row.
 1021/3244     dca PWBotAddr // Save in local variable.
 1022/1033     tad cNumCols // Setup counter for clearing top and bottom wrap rows.
 1023/7041     cia // Negate.
@@ -569,7 +573,7 @@
             //
 1045/0000   srCloneGrid, 0
 1046/7300     cla cll
-1047/1126     tad pGridCells // Load address of grid array.
+1047/1130     tad pGridCells // Load address of grid array.
 1050/3011     dca air1 // Store pointer in 1st auto-index register.
 1051/1011     tad air1 // Copy to 2nd index register.
 1052/3012     dca air2
@@ -578,7 +582,7 @@
 1055/3265     dca CGCLoopCount // Store negative cell count.
 1056/1411   CGCLoop, tad i air1 // Loop thru each grid cell.
 1057/7440     sza // Skip if zero.
-1060/4560       jms i CloneCell // Copy hi half (prior state) to lo half (current state).
+1060/4562       jms i CloneCell // Copy hi half (prior state) to lo half (current state).
 1061/3412     dca i air2 // Store cloned result back to grid cell.
 1062/2265     isz CGCLoopCount // See if we have processed all grid cells.
 1063/5256       jmp CGCLoop // If not, keep looping.
@@ -652,8 +656,8 @@
             //
 1230/0000   srPutNewLine, 0
 1231/7300     cla cll
-1232/1103     tad szNewLine
-1233/4540     jms i PutString
+1232/1105     tad szNewLine
+1233/4542     jms i PutString
 1234/5630     jmp i srPutNewLine
             //
             // Subroutine: Put Octal value to terminal.
@@ -664,7 +668,7 @@
 1236/7421     mql // Move AC to MQ and clear AC.
 1237/7501     mqa // Copy MQ back to AC.
 1240/0027     and mLoOctalDigit // Mask to keep only low octal digit.
-1241/1110     tad charZero // Convert to display digit.
+1241/1112     tad charZero // Convert to display digit.
 1242/3300     dca Octal0Digit
 1243/7501     mqa // Copy MQ to AC.
 1244/7012     rtr // Rotate right 2 bits.
@@ -672,7 +676,7 @@
 1246/7421     mql // Move AC to MQ and clear AC.
 1247/7501     mqa // Copy MQ back to AC.
 1250/0027     and mLoOctalDigit // Mask to keep only low octal digit.
-1251/1110     tad charZero // Convert to display digit.
+1251/1112     tad charZero // Convert to display digit.
 1252/3277     dca Octal1Digit
 1253/7501     mqa // Copy MQ to AC.
 1254/7012     rtr // Rotate right 2 bits.
@@ -680,16 +684,16 @@
 1256/7421     mql // Move AC to MQ and clear AC.
 1257/7501     mqa // Copy MQ back to AC.
 1260/0027     and mLoOctalDigit // Mask to keep only low octal digit.
-1261/1110     tad charZero // Convert to display digit.
+1261/1112     tad charZero // Convert to display digit.
 1262/3276     dca Octal2Digit
 1263/7501     mqa // Copy MQ to AC.
 1264/7012     rtr // Rotate right 2 bits.
 1265/7010     rar // Rotate right 1 bit.
 1266/0027     and mLoOctalDigit // Mask to keep only low octal digit.
-1267/1110     tad charZero // Convert to display digit.
+1267/1112     tad charZero // Convert to display digit.
 1270/3275     dca Octal3Digit
 1271/1274     tad OctalDigits
-1272/4540     jms i PutString
+1272/4542     jms i PutString
 1273/5635     jmp i srPutOctal // Return.
 1274/1274   OctalDigits, .  
 1275/0000   Octal3Digit, 0
@@ -721,7 +725,7 @@
 1305/0000   srGetRand,      0
 1306/7300                   CLA CLL
 1307/1316                   TAD     LastRand        // get the last PRNG value
-1310/4545                   JMS  I  EmuMUY          // multiply by the following constant
+1310/4547                   JMS  I  EmuMUY          // multiply by the following constant
 1311/5545                     5545                  // 2917 base 10 - LCPRNG multiplicand
 1312/1317                   TAD     cRandAdd        // sum in our LCPRNG addend
 1313/3316                   DCA     LastRand        // save this for next time
@@ -779,7 +783,7 @@
             //
             // Cell Array Pages.
             //
-            *2007 //*2000
+            *2007 // Could be *2000, but *2007 aligns better in the PDP-8 emulator debug 
 2007/0000   NWWrapCell, 0 // Extra "northwest" wrap cell.
 2010/0000   CellBuffer, 0 // Array of top wrap row, cell grid, bottom wrap row, and "sout
             //
@@ -789,18 +793,18 @@ $0200
 
 User Defined Symbol Table
 
-numRows 0017
-numCols 0115
-numCells2203
-numColP10116
-numColM10114
-numCellM2202
-incrNbrC0100
-decrNbrC7700
+numRows 0014
+numCols 0010
+numCells0140
+numColP10011
+numColM10007
+numCellM0137
 asciiEsc0033
 asciiSpa0040
 asciiCR 0015
 asciiLF 0012
+incrNbrC0100
+decrNbrC7700
 air0    0010
 air1    0011
 air2    0012
@@ -825,60 +829,60 @@ cNumCell0034
 szClrScr0035
 szCrsrHo0043
 szSeed  0053
-szGenera0063
-szNewLin0103
-charSpac0107
-charZero0110
-charStar0111
-cellOffs0112
-coNW    0113
-coN     0114
-coNE    0115
-coE     0116
-coSE    0117
-coS     0120
-coSW    0121
-coW     0122
-coSelf  0123
-pNWWrapC0124
-pTopWrap0125
-pGridCel0126
-pBotWrap0127
-pSEWrapC0130
-pNWPairC0131
-pTopPair0132
-pBotPair0133
-pSEPairC0134
-SkipIfCh0135
-GetChar 0136
-PutChar 0137
-PutStrin0140
-PutNewLi0141
-PutOctal0142
-SetRand 0143
-GetRand 0144
-EmuMUY  0145
-ClrGener0146
-LoadSeed0147
-ShowSeed0150
-ClrWrap 0151
-ClrGrid 0152
-Randomiz0153
-InitGrid0154
-ShowGrid0155
-ProcessG0156
-CloneGri0157
-CloneCel0160
-CellBorn0161
-CellDied0162
-CellNeig0163
-ProcWrap0164
-gGenerat0165
-gSeed   0166
+szGenera0065
+szNewLin0105
+charSpac0111
+charZero0112
+charStar0113
+cellOffs0114
+coNW    0115
+coN     0116
+coNE    0117
+coE     0120
+coSE    0121
+coS     0122
+coSW    0123
+coW     0124
+coSelf  0125
+pNWWrapC0126
+pTopWrap0127
+pGridCel0130
+pBotWrap0131
+pSEWrapC0132
+pNWPairC0133
+pTopPair0134
+pBotPair0135
+pSEPairC0136
+SkipIfCh0137
+GetChar 0140
+PutChar 0141
+PutStrin0142
+PutNewLi0143
+PutOctal0144
+SetRand 0145
+GetRand 0146
+EmuMUY  0147
+ClrGener0150
+LoadSeed0151
+ShowSeed0152
+ClrWrap 0153
+ClrGrid 0154
+Randomiz0155
+InitGrid0156
+ShowGrid0157
+ProcessG0160
+CloneGri0161
+CloneCel0162
+CellBorn0163
+CellDied0164
+CellNeig0165
+ProcWrap0166
+gGenerat0167
+gSeed   0170
 Main    0200
-MainLoop0212
-MainPaus0217
-End     0221
+MainLoop0215
+MainPaus0222
+End     0224
 srLoadSe0400
 srClrGen0405
 srShowSe0413

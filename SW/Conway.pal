@@ -17,13 +17,13 @@
 // Grid Size.
 //
 // Grid dimensions for emulator "Run PDP-8 Screen".
-numRows=15d
-numCols=77d
-numCells=1155d
+//numRows=15d
+//numCols=77d
+//numCells=1155d
 // Grid dimensions for use with PDP-8 emulator debug memory display.
-//numRows=12d
-//numCols=8d
-//numCells=96d
+numRows=12d
+numCols=8d
+numCells=96d
 // Grid dimensions to maximize use of VT-100 terminal in PDP-8/E Java Emulator http://www.vandermark.ch/pdp8/index.php
 //numRows=22d
 //numCols=80d
@@ -33,15 +33,15 @@ numColP1=numCols+1
 numColM1=numCols-1
 numCellM1=numCells-1
 //
-incrNbrCount=0100 // Increment neighber count in high half word.
-decrNbrCount=-incrNbrCount // Decrement neighber count in high half word.
-//
 // ASCII Character Codes.
 //
 asciiEsc=27d // Escape
 asciiSpace=32d // Space (Blank)
 asciiCR=13d // Carriage Return
 asciiLF=10d // Line Feed
+//
+incrNbrCount=0100 // Increment neighbor count in high half word.
+decrNbrCount=-incrNbrCount // Decrement neighbor count in high half word.
 //
 ///
 //
@@ -90,7 +90,7 @@ szCrsrHome, . // VT-100 Cursor Home.
   asciiEsc;'[0;0H'
   0
 szSeed, . // Random seed display message.
-  'Seed: '
+  '  Seed: '
   0
 szGeneration, . // Generation display message.
   '  Generation: '
@@ -166,7 +166,7 @@ gSeed, 0
 //
 *0200
 Main, cla cll // Clear AC and Link.
-  tls / Wake Up Printer 
+  tls / Wake Up Printer (terminal display)
   jms i LoadSeed
   jms i ClrGeneration  
   jms i ShowSeedAndGeneration
@@ -175,11 +175,14 @@ Main, cla cll // Clear AC and Link.
   jms i InitGrid 
   jms i CloneGrid
   jms i ShowGrid
+  jms i SkipIfChar
+    jmp MainLoop
+  jmp MainPause
 MainLoop, jms i ProcessGeneration
   jms i CloneGrid
   jms i ShowGrid
   jms i SkipIfChar
-  jmp MainLoop
+    jmp MainLoop
 MainPause, hlt // Halt.
   jmp MainLoop // Resume loop if user continues via front-panel.
 
@@ -196,7 +199,7 @@ End, cla cll // Clear AC and Link.
 // Updates: Global value gSeed.
 //
 srLoadSeed, 0
-  cla cll
+  cla cll // Clear AC and Link.
   osr // Or the Switch Register bits into AC.
   dca gSeed // Save random seed.
   jmp i srLoadSeed // Return
@@ -449,7 +452,6 @@ CBCellAddr, 0
 //
 // Subroutine: Cell Died.
 // Parameter: AC contains address of cell.
-// Registers: air7
 //
 srCellDied, 0
   dca CDCellAddr
@@ -752,7 +754,7 @@ Multiplier,     0                       // temp used by multiplication
 //
 // Cell Array Pages.
 //
-*2007 //*2000
+*2007 // Could be *2000, but *2007 aligns better in the PDP-8 emulator debug display.
 NWWrapCell, 0 // Extra "northwest" wrap cell.
 CellBuffer, 0 // Array of top wrap row, cell grid, bottom wrap row, and "southeast" wrap cell.
 //

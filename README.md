@@ -144,7 +144,8 @@ For more advanced debugging options, press the "F1" key to open the PDP-8 Emulat
 
 The example program **Conway.pal** implements [Conway's Life](http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) cellular automata algorithm.
 
-Further details on this implementation will be documented in a WordPress blog article.
+Details on this implementation are documented in this WordPress blog article:
+[Conway's Life Implemented in PDP-8 Assembly Language](http://rickrutt.wordpress.com/2013/10/19/conways-life-implemented-in-pdp-8-assembly-language/)
 
 Load, assemble, and run the program using the same steps described above for "Hello World", substituting the file name **conway.pal** for **hello.pal**
 
