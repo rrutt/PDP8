@@ -1,0 +1,21 @@
+pdp8.exe
+
+
+att rk Adventure/advent.rk05
+boot rk
+
+TYPE ADVENT.DC
+
+R FRTS
+ADVENT.LD
+( press Esc or Ctrl-[ )
+
+
+
+Notes:
+  You can interrupt the PDP8 emulator with either Ctrl-Break or Control-E.
+  To save the entire machine state, type SAVE filename.ext
+  To restore the machine state, type RESTORE filename.ext
+  To resume execution, type GO
+  To exit the emulator, type BYE
+

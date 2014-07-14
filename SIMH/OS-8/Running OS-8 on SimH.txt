@@ -1,0 +1,23 @@
+1.3 PDP-8 OS/8
+
+OS/8 is the PDP-8's mass storage-based operating system.  It provides a
+program development and execution environment for assembler, BASIC, and
+FORTRAN programs.  OS/8 is provided under license, as is, without fee, by
+Digital Equipment Corporation, for non-commercial use only.  Please read
+the enclosed license agreement for full terms and conditions.  This license
+agreement must be reproduced with any copy of the OS/8 disk images.  My
+thanks to Doug Jones of the University of Iowa, who provided the disk
+images, and to Digital Equipment Corporation, which provided the license.
+
+To boot and run OS/8:
+
+	sim> att rx0 os8_rx.dsk
+	sim> att rx1 os8f4_rx.dsk
+	sim> boot rx0
+	
+	.DA dd-mmm-yy
+	.
+
+Note that OS/8 only recognizes upper case characters.  The first disk
+(drive 0) is the system disk; it also includes BASIC.  The second disk
+(drive 1) includes FORTRAN.

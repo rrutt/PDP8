@@ -1,0 +1,44 @@
+//
+// Code Segment
+//
+*0200 // Code Segment starts at 0200 octal
+//
+Main, cla cll // Clear AC and Link
+  tls // Wake Up Printer
+  tad Str // Get address of output string
+  jms PrtStr // Call PtrStr to Print it
+End, hlt // Done!
+  jmp Main // Continue
+//
+// Data Segment
+//
+*0300 // Place String at 0300 octal
+//
+Str, . // Str stores its own address
+  "H;"e;"l;"l;"o;",;" ;"W;"o;"r;"l;"d;"!;15;12;0 // string to be displayed - ends with null
+//
+// Subroutine Segment
+//
+*0340 // Subroutines begin at address 0340 octal
+//
+GetChar, 0 // Return Address Stored Here
+  ksf // Is Keyboard Flag Raised ?
+    jmp .-1 // No - Loop! (Wait Loop)
+  krb // Yes - Read Character to AC
+  jmp i GetChar // Return
+//
+Type, 0 // Return Address Stored Here
+  tsf // Is Printer Ready?
+    jmp .-1 // No - Loop! (Wait Loop)
+  tls // Yes - Print the character!
+  cla cll // Clear AC and Link
+  jmp i Type // Return
+//
+PrtStr, 0 // Return Address Stored Here
+  dca 10 // Deposit address of string to auto-index register 10
+  tad i 10 // Load character
+  sna // Is it a null? - skip if non-zero
+    jmp i PrtStr // yes - return
+  jms Type // no - call Type to display
+  jmp .-4 // Get next character
+$Main

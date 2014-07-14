@@ -1,0 +1,68 @@
+
+      //                                                                  Page 1
+
+
+    1             //
+    2             // Code Segment
+    3             //
+    4       0200  *0200 // Code Segment starts at 0200 octal
+    5             //
+    6 00200 7300  Main, cla cll // Clear AC and Link
+    7 00201 6046    tls // Wake Up Printer
+    8 00202 1300    tad Str // Get address of output string
+    9 00203 4353    jms PrtStr // Call PtrStr to Print it
+   10 00204 7402  End, hlt // Done!
+   11 00205 5200    jmp Main // Continue
+   12             //
+   13             // Data Segment
+   14             //
+   15       0300  *0300 // Place String at 0300 octal
+   16             //
+   17 00300 0300  Str, . // Str stores its own address
+   18 00301 0310    "H;"e;"l;"l;"o;",;" ;"W;"o;"r;"l;"d;"!;15;12;0 // string to be displayed - ends with null
+      00302 0345
+      00303 0354
+      00304 0354
+      00305 0357
+      00306 0254
+      00307 0240
+      00310 0327
+      00311 0357
+      00312 0362
+      00313 0354
+      00314 0344
+      00315 0241
+      00316 0015
+      00317 0012
+      00320 0000
+   19             //
+   20             // Subroutine Segment
+   21             //
+   22       0340  *0340 // Subroutines begin at address 0340 octal
+   23             //
+   24 00340 0000  GetChar, 0 // Return Address Stored Here
+   25 00341 6031    ksf // Is Keyboard Flag Raised ?
+   26 00342 5341      jmp .-1 // No - Loop! (Wait Loop)
+   27 00343 6036    krb // Yes - Read Character to AC
+   28 00344 5740    jmp i GetChar // Return
+   29             //
+   30 00345 0000  Type, 0 // Return Address Stored Here
+   31 00346 6041    tsf // Is Printer Ready?
+   32 00347 5346      jmp .-1 // No - Loop! (Wait Loop)
+   33 00350 6046    tls // Yes - Print the character!
+   34 00351 7300    cla cll // Clear AC and Link
+   35 00352 5745    jmp i Type // Return
+   36             //
+   37 00353 0000  PrtStr, 0 // Return Address Stored Here
+   38 00354 3010    dca 10 // Deposit address of string to auto-index register 10
+   39 00355 1410    tad i 10 // Load character
+   40 00356 7450    sna // Is it a null? - skip if non-zero
+   41 00357 5753      jmp i PrtStr // yes - return
+   42 00360 4345    jms Type // no - call Type to display
+
+      //                                                                  Page 2
+
+
+   43 00361 5355    jmp .-4 // Get next character
+
+      No detected errors

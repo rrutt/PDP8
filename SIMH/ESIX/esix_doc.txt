@@ -1,0 +1,258 @@
+To:	Users
+From:	Bob Supnik
+Subj:	ESI-X
+Date:	10-Mar097
+
+                                COPYRIGHT NOTICE
+
+The following copyright notice applies to both the ESI-X source and binary:
+
+        Original code published in 1966-1968, written by David J Waks
+        Portions Copyright (C) 1997 Digital Equipment Corporation
+
+        All Rights Reserved except as specified below.
+
+        Permission is hereby granted to use, copy, modify, and distribute
+        this software (or portions thereof) for any purpose, without fee,
+        subject to these conditions:
+
+        (1) If any part of the source code for this software is distributed,
+        then this copyright and no-warranty notice must be included
+        unaltered; and any additions, deletions, or changes to the original
+        files must be clearly indicated in accompanying documentation.
+
+        (2) If only executable code is distributed, then the accompanying
+        documentation must state that "this software is based in part on the
+        original work of David J Waks".
+
+        (3) Permission for use of this software is granted only if the user
+        accepts full responsibility for any undesirable consequences; the
+        authors accept NO LIABILITY for damages of any kind.
+
+        These conditions apply to any software derived from or based on this
+        code, not just to the unmodified code.
+
+        Permission is NOT granted for the use of any author's name or
+        company name in advertising or publicity relating to this software
+        or products derived from it.
+
+
+1. Introduction
+
+This package contains the source and binary for ESI-X, the Engineering 
+and Scientific Interpreter eXtended.  ESI-X was the first stored program 
+scientific interpreter for the PDP-8.  It provided a full range of 
+scientific calculation capabilities, including the ability to store 
+complex programs.  It was written at Applied Data Research in 1966-67.
+
+The package contains the following items:
+
+	defs.pal		minimal symbol table definitions
+	esix.pal		ESI-X main program
+	fp.pal			ESI-X transcendental functions
+	esix.bin		ESI-X binary tape image
+	macro8x.c		assembler for ESI-X
+
+To assemble ESI-X, you must first compile the assembler:
+
+	cc macro8x.c -o macro8x
+
+and then use it to assemble the sources:
+
+	macro8x esix.pal fp.pal
+
+Note that the defs.pal file is not used with this version of macro8x; it 
+was used with the original sources to conserve symbol table space.
+
+The binary tape image can be used directly with any PDP-8 simulator that 
+has a built-in binary loader command.  Because it uses locations 7600-7754, 
+it requires a special loader to be executed on a real PDP-8.
+
+
+2. History Of The Program
+
+ESI was designed in 1966 by Dave Waks and implemented by Dave Waks and 
+Spike Chagnon.  The original version ran in 4KW of memory.  Dave Waks 
+wrote the following comments on the origins of the program:  "Digital's
+announcement in August of 1966 of the PDP-8/s-- the first computer which
+sold for "less than ten thousand dollars" (it cost $9,995) -- was what 
+stimulated me to write ESI. (The price list is dated 8/1/66; my design 
+notes start on 8/3.)  The thought was that a newbie could buy a real 
+computer at what seemed like a very reasonable price, but what could they 
+do with it?  ESI (originally the "Eight S interpreter") was the answer... 
+Many of the key concepts came from the Johnniac Open Shop System (JOSS) 
+developed at the Rand Corporation - what I believe was actually the first 
+interactive computer system as we would define it today.  I had seen a 
+talk on JOSS by its developer (Cliff Shaw?) at a computer conference 
+(FJCC 64 in SFO?), and was so taken by it that I travelled to Santa 
+Monica to meet with the author and get my hands on the system.  (I think 
+also in the Fall of 64).  I really wanted to create my own version of 
+JOSS, and the 8/S looked like the right target.  (btw, I'm pretty sure
+that John Kemeny of Dartmouth also saw Shaw's talk, and he want back to
+Dartmouth and wrote BASIC.)"
+
+In 1967, Bob Supnik extended the program to use 8KW of memory and added 
+the transcendental functions.  Thereafter, the 4KW version was called 
+ESI-B (basic) and the 8KW version ESI-X (extended).  In 1968, Digital 
+Equipment wrote a very similar program, FOCAL, and gave it away for free; 
+this ended ESI-X' marketability.  In the 1970's, Applied Data Research 
+gave the binaries of the program to DECUS.  However, the source was 
+believed lost.
+
+
+3. Provenance Of The Source
+
+In 1997, Dave Waks found two PDP-10 failsafe tapes in his basement.  
+According to a directory listing, one of them contained old Applied 
+Data Research software for the PDP-7 and PDP-8, including ESI-X.  (The 
+other had no label and has proved unreadable.)  Dave sent the tape to 
+me to see if it could be salvaged.  I in turn contacted Paul Pierce, 
+who was able to use his seven track magtape set up to read most of the 
+tape.  Tim Litt then wrote a failsafe format interpreter which recovered 
+the original ASCII files.  I then modified Gary A. Messenbrink's PDP-8
+cross assembler to add the features (macros, variable field definitions)
+used by the source code.  The result is the binary in this package.
+
+As best as I can tell, the source was recovered more or less intact.  
+There were numerous garbles in the comments, but whether these were 
+due to undetected read errors, or typos in the original source, is 
+impossible to determine.  In preparing for this release, I have made 
+the following changes to the source:
+
+- The macro "SDB n" (meaning CDF n*10) has been removed and replaced by 
+  equivalent CDF instructions.  This is due to a limitation in the macro 
+  assembler, which cannot process macros inside of literals.
+
+- Obvious garbles in the comments have been removed or cleaned up.
+
+- Tabulation of comments has been regularized, for readability.
+
+- The definition of XX=HLT in defs.pal has been duplicated in esix.pal.
+
+Otherwise, the source is unchanged.
+
+
+4. Users' Guide
+
+ESI-X implements a straightforward procedural language.  It has 26 
+variables, denominated by the letters A-Z.  A variable can either be 
+a simple variable or a subscripted variable, with one or two dimensions.  
+If subscripted, only those subscript instances which are used are 
+actually stored.  Subscripts have a maximum value of 999.
+
+Language statements can either be executed directly or stored as 
+programs for later execution.  Programs are organized into parts.  
+There can be 9 parts, numbered 1-9.  Each part consists of multiple 
+steps, numbered as floating point numbers beginning with the part 
+number.  A sample program:
+
+	1.01 TYPE "HELLO WORLD!".
+	1.02 TYPE "HERE IS A TABLE OF SQUARE ROOTS.".
+	1.03 FOR I=1(1)10, TYPE I, SQRT(I).
+	1.04 STOP.
+
+All ESI-X statements are sentences, with a verb to start and a period 
+at the end. The period is NOT optional.
+
+The statement syntax follows.  In the syntax, literal strings are 
+capitalized; terminal classes are denoted by T<class name>.  The 
+terminal classes are:
+
+Tname				variable name (A - Z)
+Tnumber				floating point number
+Tinteger			integer part number (1-9)
+Tstring				text string, delimited by "
+
+<direct statement> :=		LOG ON | LOG OFF | * |
+				  {<if clause>} <direct tail>
+<direct tail> :=		<for clause> | <direct/indirect statement> |
+				  <direct only statement>
+<direct/indirect statement> :=	<set statement> | <do statement> |
+				  <type statement> | LINE | NOLINE | PAGE
+<direct only statement> :=	<direct delete statement> | <arith statement>
+<indirect statement> :=		* | {<if clause>} <indirect tail>
+<indirect tail> :=		<for clause> | <direct/indirect statement> |
+				  <indirect only statement>
+<indirect only statement> := 	<to statement> | <demand statement> |
+				  <indirect delete statement> | DONE | STOP
+<interrupt statement> :=	GO | CANCEL | <type statement>
+
+<if clause> :=			IF <arith expr> <rel operator> <arith expr> ,
+<for clause> :=			FOR <variable> = <arith expr> ( <arith expr> )
+				  <arith expr> ,
+<set statement> :=		SET <variable> = <arith expr>
+<do statement> :=		DO <do tail>
+<do tail> :=			PART Tinteger | STEP <arith expr>
+<type statement> :=		TYPE <type tail>
+<type tail> :=			<type arithmetic> | <type other>
+<type arithmetic> :=		<type arith expr> {, <type arith expr> ...}
+<type arith expr> :=		<arith expr> <type arith string> |
+				  " Tstring " <type arith subexpr>
+<type arith string> :=		" Tstring " <type arith subexpr>
+<type arith subexpr> :=		<arith expr> <type arith string>
+<type other> :=			SIZE | STEP Tnumber | PART Tinteger | ALL |
+				  ALL VALUES | ALL PARTS | ALL Tname
+
+<direct delete statement> :=	DELETE <delete tail>
+<delete tail> :=		<delete list> | STEP Tnumber | PART Tinteger |
+				  ALL | ALL VALUES | ALL PARTS
+<delete list> :=		<variable> {, <variable> ... }
+<arith statement> :=		<variable> = <arith expr>
+
+<to statement> :=		TO STEP <arith expr> | TO PART Tinteger
+<demand statement> :=		DEMAND <variable>
+<indirect delete statement> :=	DELETE <delete list> | DELETE ALL VALUES
+
+<arith expr> :=			<term> {<add operator> <term> ...}
+<term> :=			<factor> {<mul operator> <factor> ...}
+<factor> :=			{+ | - } <subfactor>
+<subfactor> :=			<primary> {^ <primary> ...}
+<primary> :=			<variable> | Tnumber | ( <arith expr> ) |
+				  <function operator> ( <arith expr> )
+<variable>			Tname { [ <arith expr> {, <arith expr> } ] }
+
+<add operator> :=		+ | -
+<mul operator> :=		+ | -
+<rel operator> :=		= | < | > | GE | LE | NE
+<function operator> :=		ABS | IP | FP | SGN | SIN | COS | SQRT | LOG |
+				  EXP | ARCTAN | LN | DP | EP
+
+Some comments on the syntax:
+
+- LOG ON and LOG OFF delimit a session for a particular user.  LOG ON 
+  allows the user to specify a session name.  ESI-X keeps track of lines 
+  typed and inserts page breaks appropriately, with the page number and 
+  session name at the top of each page.  PAGE forces top of new page.
+
+- NOLINE and LINE disable and enable, respectively, typing a new line 
+  character at the end of each TYPE statement.
+
+- When executing a stored program, ESI-X monitors for interruption 
+  (signified by the ALTMODE character, ^} on a modern keyboard).  In 
+  interrupt mode, the user can inspect the state of the program with 
+  TYPE commands, continue execution with GO, or return to direct statement 
+  mode with CANCEL.
+
+
+5. Useful Patches
+
+- ESI-X rings the bell each time it requires keyboard input.  To suppress 
+  this, patch the loaded program as follows:
+
+	sim> d 6015-6016 nop
+
+  or in binary:
+
+	6015/	7000
+	6016/	7000
+
+- ESI-X requires a period at the end of every statement.  To suppress 
+  this, patch the loaded program as follows:
+
+	sim> d 6102-6104 nop
+
+  or in binary:
+
+	6102/	7000
+	6103/	7000
+	6104/	7000

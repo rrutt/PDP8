@@ -1,0 +1,64 @@
+Notes:
+  If the ESI-X script goes into an infinite loop, type the } key to interrupt it.
+  Then type either GO. to resume or CANCEL. to go back to "command mode".
+  Remember: All ESI-X commands MUST end with a period. (That's imperative.)
+
+Here starts the session:
+
+
+pdp8.exe
+
+load esix/esix.bin
+run 5400
+
+
+1.1 TYPE "THIS PROGRAM CALCULATES FACTORIALS.".
+1.2 TYPE "ENTER A POSITIVE NUMBER:".
+1.3 DEMAND N.
+1.4 DO PART 2.
+1.5 TYPE "RESULT: "N"! = "F.
+1.6 TYPE "TYPE GO. TO CONTINUE.".
+1.7 STOP.
+1.8 TO STEP 1.2.
+
+2.1 SET I=1.
+2.2 SET F=1.
+2.3 SET F=F*I.
+2.4 SET I=I+1.
+2.5 IF I LE N, TO STEP 2.3.
+
+DELETE ALL VALUES.
+TYPE ALL.
+
+DO PART 2.
+
+N=3.
+DO PART 2.
+TYPE F.
+
+DO PART 1.
+
+GO.
+
+TYPE ALL.
+
+3.1 DELETE X.
+3.2 DELETE Y.
+3.3 FOR N=1(1)30, DO PART 4.
+3.4 FOR N=1(1)30, TYPE "N="N": "X[N]"! = "Y[N].
+
+4.1 SET X[N]=N.
+4.2 DO PART 2.
+4.3 SET Y[N]=F.
+
+TYPE ALL.
+
+DO PART 3.
+
+TYPE ALL VALUES.
+
+DELETE X.
+TYPE ALL VALUES.
+
+DELETE ALL.
+TYPE ALL.

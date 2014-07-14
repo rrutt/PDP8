@@ -18,8 +18,6 @@ public class LstToRimEncoder {
 
 	private static final String objExtension = ".OBJ";
 	private static final String rimExtension = ".RIM";
-//	private static final byte ASCII_CR = 13;
-//	private static final byte ASCII_LF = 10;
 	private static final int ASCII_RUBOUT = 0377; // Octal
 	private static final int leaderByteCount = 2;
 	private static final int maskHi = 07700; // Octal
