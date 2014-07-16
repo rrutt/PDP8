@@ -228,7 +228,7 @@ Some comments on the syntax:
   character at the end of each TYPE statement.
 
 - When executing a stored program, ESI-X monitors for interruption 
-  (signified by the ALTMODE character, ^} on a modern keyboard).  In 
+  (signified by the ALTMODE character, or } on a modern keyboard).  In 
   interrupt mode, the user can inspect the state of the program with 
   TYPE commands, continue execution with GO, or return to direct statement 
   mode with CANCEL.

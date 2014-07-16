@@ -3,14 +3,40 @@ Notes:
   Then type either GO. to resume or CANCEL. to go back to "command mode".
   Remember: All ESI-X commands MUST end with a period. (That's imperative.)
 
+Notes:
+  If the ESI-X script goes into an infinite loop, type the } key to interrupt it.
+  Then type either GO. to resume or CANCEL. to go back to "command mode".
+  Remember: All ESI-X commands MUST end with a period. (That's imperative.)
+
+Copy and paste desired lines from this text file into the Windows console terminal window.
+(If you don't have "QuickEdit Mode" enabled for the console window,
+click the upper left icon in the window title bar and select Edit | Paste.)
+
+Note that ESI-X sounds the "bell" (Control-G character) whenever it wants input 
+(and displays an underscore).
+If the bell bothers you, turn down your computer speaker volume.
+
+If you enter text interactively, press Backspace to delete one or more prior characters.
+Instead of moving the cursor and blanking the deleted characters,
+an underscore is displayed for each backspace.
+You will need to image what characters are left on the current line.
+Remember, the earlier terminals were teletypewriters that printed on rolls of paper.
+They didn't have "erasers".
+
+To exit "politely", press Control-Break (or Control-E) to return to the SIMH command prompt,
+then type BYE
+To exit more quickly, just close the Windows console terminal window.
+
+
 Here starts the session:
 
 
 pdp8.exe
 
+show configuration
+
 load esix/esix.bin
 run 5400
-
 
 1.1 TYPE "THIS PROGRAM CALCULATES FACTORIALS.".
 1.2 TYPE "ENTER A POSITIVE NUMBER:".
@@ -37,8 +63,6 @@ DO PART 2.
 TYPE F.
 
 DO PART 1.
-
-GO.
 
 TYPE ALL.
 
