@@ -3,11 +3,6 @@ Notes:
   Then type either GO. to resume or CANCEL. to go back to "command mode".
   Remember: All ESI-X commands MUST end with a period. (That's imperative.)
 
-Notes:
-  If the ESI-X script goes into an infinite loop, type the } key to interrupt it.
-  Then type either GO. to resume or CANCEL. to go back to "command mode".
-  Remember: All ESI-X commands MUST end with a period. (That's imperative.)
-
 Copy and paste desired lines from this text file into the Windows console terminal window.
 (If you don't have "QuickEdit Mode" enabled for the console window,
 click the upper left icon in the window title bar and select Edit | Paste.)
